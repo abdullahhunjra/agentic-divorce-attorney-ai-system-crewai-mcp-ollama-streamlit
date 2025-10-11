@@ -1,7 +1,7 @@
 # ⚖️ UK Divorce Attorney Assistant (CrewAI + MCP + Streamlit + Ollama)
 
 <p align="center">
-  <img src="title_image.png" width="65%" style="border-radius: 10px;">
+  <img src="title_img.png" width="65%" style="border-radius: 10px;">
 </p>
 
 <h1 align="center">⚖️ UK Divorce Attorney AI Assistant/h1>
@@ -129,7 +129,7 @@ The processed, structured output is streamed back to the Streamlit interface, fo
 
 ## Installation & Setup
 ### 1️⃣ Clone the Repository
-git clone https://github.com/<yourusername>/attorney-rag.git
+git clone https://github.com/abdullahhunjra/agentic-divorce-attorney-ai-system-crewai-mcp-ollama-streamlit.git
 cd attorney-rag
 
 ###2️⃣ Initialize the Environment
