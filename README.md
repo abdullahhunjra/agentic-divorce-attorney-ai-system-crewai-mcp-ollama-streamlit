@@ -147,12 +147,12 @@ git clone https://github.com/abdullahhunjra/agentic-divorce-attorney-ai-system-c
 cd attorney-rag
 ``` 
 
-###2️⃣ Initialize the Environment
+2️⃣ Initialize the Environment
 ``` 
 uv init
 ``` 
 
-###3️⃣ Install Dependencies
+3️⃣ Install Dependencies
 
 Since this project uses pyproject.toml, simply run:
 ``` 
@@ -162,25 +162,33 @@ uv sync
 
 This installs all dependencies defined under [project.dependencies].
 
-###4️⃣ Start Ollama
-``` ollama serve
-ollama pull llama3``` 
+4️⃣ Start Ollama
+``` 
+ollama serve
+ollama pull llama3
+``` 
 
-###5️⃣ Start MCP Servers
+5️⃣ Start MCP Servers
 
 In separate terminals, run:
 
-``` uv run python servers/clause_template_server.py
+``` 
+uv run python servers/clause_template_server.py
 uv run python servers/case_research_template_server.py
 uv run python servers/strategy_template_server.py
-uv run python servers/petition_template_server.py``` 
+uv run python servers/petition_template_server.py
+``` 
 
-###6️⃣ Launch Streamlit Interface
-``` uv run streamlit run client/app.py``` 
+6️⃣ Launch Streamlit Interface
+``` 
+uv run streamlit run client/app.py
+``` 
 
 
 Now open your browser at:
-👉 ``` http://127.0.0.1:8501``` 
+👉 ``` 
+http://127.0.0.1:8501
+``` 
 
 💬 Example Queries
 📘 Clause Retrieval
