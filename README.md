@@ -82,9 +82,10 @@ Example:
 ```python
 Action: find_relevant_clauses
 Action Input: {"query": "adultery and irretrievable breakdown of marriage"}
-
+```
 
 ## PROJECT STRUCTURE
+```
 Attorney-RAG/
 │
 ├── client/
@@ -112,7 +113,7 @@ Attorney-RAG/
 ## How Does it Work
 
 ``` 
-User Query (via Streamlit)
+--- **User Query (via Streamlit)**
 The lawyer inputs a natural query like
 “Draft a divorce petition for Jane Doe vs John Doe under the 1973 Act.”
 
