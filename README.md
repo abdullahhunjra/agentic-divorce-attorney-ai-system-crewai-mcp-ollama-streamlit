@@ -144,16 +144,20 @@ The processed, structured output is streamed back to the Streamlit interface, fo
 ### 1️⃣ Clone the Repository
 ``` 
 git clone https://github.com/abdullahhunjra/agentic-divorce-attorney-ai-system-crewai-mcp-ollama-streamlit.git
-cd attorney-rag``` 
+cd attorney-rag
+``` 
 
 ###2️⃣ Initialize the Environment
-``` uv init``` 
+``` 
+uv init
+``` 
 
 ###3️⃣ Install Dependencies
 
 Since this project uses pyproject.toml, simply run:
-
-``` uv sync``` 
+``` 
+uv sync
+``` 
 
 
 This installs all dependencies defined under [project.dependencies].
