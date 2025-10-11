@@ -114,30 +114,29 @@ Attorney-RAG/
 
 
 **User Query (via Streamlit)**
-``` 
+
 The lawyer inputs a natural query like
 “Draft a divorce petition for Jane Doe vs John Doe under the 1973 Act.”
-``` 
 
 
-Routing via CrewAI LLM
-``` 
+**Routing via CrewAI LLM**
+
 The Llama 3 model analyzes the query and routes it to the most appropriate agent through
 route_query_to_agent_llm().
-``` 
 
 
-Agent Task Execution
-``` Each agent has a CrewAI Task object that defines its description, expected output, and assigned tools.``` 
 
-Tool Invocation (via MCP)
-``` Agents call MCP servers (like find_relevant_clauses, find_similar_cases, generate_legal_strategy, draft_petition).``` 
+**Agent Task Execution**
+Each agent has a CrewAI Task object that defines its description, expected output, and assigned tools.
 
-Vector Retrieval & LLM Reasoning
-``` The MCP servers perform vector similarity searches (for clauses) or generate responses (for strategy/petition).``` 
+**Tool Invocation (via MCP)**
+ Agents call MCP servers (like find_relevant_clauses, find_similar_cases, generate_legal_strategy, draft_petition).
 
-Result Delivery
-``` The processed, structured output is streamed back to the Streamlit interface, formatted for readability.``` 
+**Vector Retrieval & LLM Reasoning**
+The MCP servers perform vector similarity searches (for clauses) or generate responses (for strategy/petition).
+
+**Result Delivery**
+The processed, structured output is streamed back to the Streamlit interface, formatted for readability.
 
 ## Installation & Setup
 
