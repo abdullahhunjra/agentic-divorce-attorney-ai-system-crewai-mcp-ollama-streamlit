@@ -112,63 +112,72 @@ Attorney-RAG/
 
 ## How Does it Work
 
+
+**User Query (via Streamlit)**
 ``` 
---- **User Query (via Streamlit)**
 The lawyer inputs a natural query like
 “Draft a divorce petition for Jane Doe vs John Doe under the 1973 Act.”
+``` 
+
 
 Routing via CrewAI LLM
+``` 
 The Llama 3 model analyzes the query and routes it to the most appropriate agent through
 route_query_to_agent_llm().
+``` 
+
 
 Agent Task Execution
-Each agent has a CrewAI Task object that defines its description, expected output, and assigned tools.
+``` Each agent has a CrewAI Task object that defines its description, expected output, and assigned tools.``` 
 
 Tool Invocation (via MCP)
-Agents call MCP servers (like find_relevant_clauses, find_similar_cases, generate_legal_strategy, draft_petition).
+``` Agents call MCP servers (like find_relevant_clauses, find_similar_cases, generate_legal_strategy, draft_petition).``` 
 
 Vector Retrieval & LLM Reasoning
-The MCP servers perform vector similarity searches (for clauses) or generate responses (for strategy/petition).
+``` The MCP servers perform vector similarity searches (for clauses) or generate responses (for strategy/petition).``` 
 
 Result Delivery
-The processed, structured output is streamed back to the Streamlit interface, formatted for readability.
+``` The processed, structured output is streamed back to the Streamlit interface, formatted for readability.``` 
 
 ## Installation & Setup
+
+
 ### 1️⃣ Clone the Repository
+``` 
 git clone https://github.com/abdullahhunjra/agentic-divorce-attorney-ai-system-crewai-mcp-ollama-streamlit.git
-cd attorney-rag
+cd attorney-rag``` 
 
 ###2️⃣ Initialize the Environment
-uv init
+``` uv init``` 
 
 ###3️⃣ Install Dependencies
 
 Since this project uses pyproject.toml, simply run:
 
-uv sync
+``` uv sync``` 
 
 
 This installs all dependencies defined under [project.dependencies].
 
 ###4️⃣ Start Ollama
-ollama serve
-ollama pull llama3
+``` ollama serve
+ollama pull llama3``` 
 
 ###5️⃣ Start MCP Servers
 
 In separate terminals, run:
 
-uv run python servers/clause_template_server.py
+``` uv run python servers/clause_template_server.py
 uv run python servers/case_research_template_server.py
 uv run python servers/strategy_template_server.py
-uv run python servers/petition_template_server.py
+uv run python servers/petition_template_server.py``` 
 
 ###6️⃣ Launch Streamlit Interface
-uv run streamlit run client/app.py
+``` uv run streamlit run client/app.py``` 
 
 
 Now open your browser at:
-👉 http://127.0.0.1:8501
+👉 ``` http://127.0.0.1:8501``` 
 
 💬 Example Queries
 📘 Clause Retrieval
