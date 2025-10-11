@@ -129,7 +129,7 @@ The agent retrieved **Section 1(2)** of the *Matrimonial Causes Act 1973*, expla
 
 ### ⚖️ Case Researcher Agent  
 **Scenario:**  
-> Find and summarize 3 UK family law cases that deal with custody disputes where the mother was granted custody.
+> Find and summarize 3 UK family law cases that deal with custody disputes where the mother was granted custody .
 
 **Result:**  
 The agent provided summarized **case precedents**, including judgment outcomes, reasoning, and relevant URLs — offering clear insight into custody decisions under UK family law.
