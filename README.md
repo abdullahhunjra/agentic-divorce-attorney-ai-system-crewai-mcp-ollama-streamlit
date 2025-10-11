@@ -82,7 +82,7 @@ Example:
 ```python
 Action: find_relevant_clauses
 Action Input: {"query": "adultery and irretrievable breakdown of marriage"}
-``` 
+
 
 ## PROJECT STRUCTURE
 Attorney-RAG/
@@ -107,6 +107,7 @@ Attorney-RAG/
 └── README.md
 
 ---
+``` 
 
 ## How Does it Work
 
