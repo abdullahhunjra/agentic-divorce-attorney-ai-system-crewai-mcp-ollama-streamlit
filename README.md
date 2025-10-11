@@ -110,6 +110,48 @@ Attorney-RAG/
 ---
 ``` 
 
+## 📸 Screenshots & Demo
+
+Below are example outputs from the **UK Divorce Attorney AI System**, showing how different agents (CrewAI + MCP) interact to handle real legal scenarios.
+
+---
+
+### 📘 Clause Retrieval Agent  
+**Scenario:**  
+> In a situation where one spouse has committed adultery and the other wishes to file for divorce — find clauses from the *Matrimonial Causes Act 1973* that define adultery and establish the legal grounds for such a divorce.
+
+**Result:**  
+The agent retrieved **Section 1(2)** of the *Matrimonial Causes Act 1973*, explaining the legal basis for adultery as a valid ground for divorce.
+
+![Clause Retrieval Screenshot](screenshots/clause_retrieval.png)
+
+---
+
+### ⚖️ Case Researcher Agent  
+**Scenario:**  
+> Find and summarize 3 UK family law cases that deal with custody disputes where the mother was granted custody.
+
+**Result:**  
+The agent provided summarized **case precedents**, including judgment outcomes, reasoning, and relevant URLs — offering clear insight into custody decisions under UK family law.
+
+![Case Research Screenshot](screenshots/case_researcher.png)
+
+---
+
+### 🧠 Case Strategy Analyst Agent  
+**Scenario:**  
+> Based on the following details — John Doe and Jane Doe have been married for 10 years and have two children (ages 8 and 10). Generate a legal strategy outlining arguments, counterarguments, and next steps.
+
+**Result:**  
+The agent produced a structured **legal strategy document**, including key arguments, suggested approaches, and potential counterpoints grounded in UK family law.
+
+![Case Strategy Screenshot](screenshots/case_strategy_analyst.png)
+
+---
+
+Each agent operates autonomously via **CrewAI**, leveraging **LLM reasoning**, **vector-based retrieval**, and **MCP microservices** for accurate, document-grounded legal intelligence.
+
+
 ## How Does it Work
 
 
@@ -187,7 +229,7 @@ uv run streamlit run client/app.py
 
 Now open your browser at:
 👉
- ``` 
+``` 
 http://127.0.0.1:8501
 ``` 
 
