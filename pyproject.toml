@@ -1,0 +1,22 @@
+[project]
+name = "attorney-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "crewai>=0.201.1",
+    "crewai-tools[mcp]>=0.75.0",
+    "ddgs>=9.6.0",
+    "faiss-cpu>=1.12.0",
+    "fastmcp>=2.12.4",
+    "fpdf>=1.7.2",
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.30",
+    "langchain-ollama>=0.3.10",
+    "mcp[cli]>=1.16.0",
+    "pypdf>=6.1.1",
+    "streamlit>=1.50.0",
+    "tavily-python>=0.7.12",
+    "unstructured>=0.18.15",
+]
