@@ -70,6 +70,7 @@ The project’s **legal clause retrieval** is powered by a vectorized version of
 
 ---
 
+
 ## 🧮 Vector Database (ChromaDB)
 
 - Each clause in the *Matrimonial Causes Act 1973* is embedded as a vector representation.
@@ -81,7 +82,7 @@ Example:
 ```python
 Action: find_relevant_clauses
 Action Input: {"query": "adultery and irretrievable breakdown of marriage"}
-
+``` 
 
 ## PROJECT STRUCTURE
 Attorney-RAG/
@@ -105,7 +106,10 @@ Attorney-RAG/
 ├── .venv/ or .uv/                      # Auto-generated environment
 └── README.md
 
-## How Does it Works
+---
+
+## How Does it Work
+
 
 User Query (via Streamlit)
 The lawyer inputs a natural query like
