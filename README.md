@@ -111,7 +111,7 @@ Attorney-RAG/
 
 ## How Does it Work
 
-
+``` 
 User Query (via Streamlit)
 The lawyer inputs a natural query like
 “Draft a divorce petition for Jane Doe vs John Doe under the 1973 Act.”
@@ -189,7 +189,7 @@ Petitioner: Jane Elizabeth Doe
 Respondent: John Michael Doe
 Lawyer: Mr. Richard Allan, Allan & Co. Family Law Chambers, London.”
 
-
+``` 
 
 ## 🙋‍♂️ Author
 
