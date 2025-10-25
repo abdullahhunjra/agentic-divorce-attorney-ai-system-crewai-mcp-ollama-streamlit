@@ -19,11 +19,13 @@
 
 This project is a full-fledged **Legal AI Workflow System** designed to mimic a **UK Family Law Attorney’s digital assistant**.
 
+
 It leverages:
 - **CrewAI** → for multi-agent orchestration (clause retrieval, case research, strategy analysis, petition drafting)
 - **MCP (Model Context Protocol)** → by Anthropic, for connecting external tools and servers to the LLMs
 - **LLMs (Ollama / Llama 3)** → for reasoning, writing, and decision routing
-- **ChromaDB** → for semantic vector search of legal texts
+- **Hybrid Retrieval Pipeline** → Dense + Lexical + Metadata search architecture with reranking and query rewriting.
+- **FAISS** → for semantic vector search of legal texts
 - **Pydantic** → for schema validation and safe data transfer in tool interactions
 - **Streamlit** → for an interactive web-based interface
 - **UV** → for dependency management and virtual environment setup (used instead of pip/conda)
@@ -36,7 +38,7 @@ Together, these components enable natural-language interaction with multiple aut
 
 | Agent | Role | Description |
 |--------|------|-------------|
-| **Clause Retrieval Specialist** | Legal Researcher | Uses vector similarity search on *UK Matrimonial Causes Act 1973* to retrieve relevant legal clauses |
+| **Clause Retrieval Specialist** | Legal Researcher | Uses hybrid (semantic + lexical + metadata) retrieval to find relevant statutory clauses from the Matrimonial Causes Act 1973.|
 | **Case Researcher** | Precedent Finder | Searches and summarizes 3–5 similar UK family law judgments from case repositories |
 | **Case Strategy Analyst** | Legal Strategist | Drafts professional legal arguments, counter-arguments, and litigation strategies |
 | **Petition Writer** | Document Drafter | Generates court-ready divorce petitions following official UK Family Court structure |
@@ -50,9 +52,11 @@ Together, these components enable natural-language interaction with multiple aut
 |------------|-------------|
 | Agents Framework | [CrewAI](https://docs.crewai.com/) |
 | Tool Interface | [Model Context Protocol (MCP)](https://github.com/anthropic/mcp) |
-| Vector Database | [ChromaDB](https://www.trychroma.com/) |
+| Vector Database | FAISS |
+| Embeddings | Sentence-Transformers – BAAI/bge-base-en-v1.5 |
 | Large Language Model | [Ollama – Llama 3](https://ollama.ai/library/llama3) |
 | UI | [Streamlit](https://streamlit.io/) |
+| Data Cleaning | Unstructured |
 | Dependency & Env Mgmt | [uv](https://docs.astral.sh/uv/) |
 | Language | Python 3.13 |
 | Dataset | **UK Matrimonial Causes Act 1973 (annotated & embedded)** |
@@ -64,19 +68,51 @@ Together, these components enable natural-language interaction with multiple aut
 The project’s **legal clause retrieval** is powered by a vectorized version of the  
 📜 **Matrimonial Causes Act 1973 (United Kingdom)**.
 
-- All sections and subsections were **converted into text embeddings** using Chroma.
-- The **Clause Retrieval Specialist** queries this database via the MCP tool `find_relevant_clauses(query)`.
-- This enables **semantic legal search**, not just keyword lookup — the system understands context such as *"irretrievable breakdown"* or *"custody arrangements."*
+Data Preparation Pipeline
 
+- Cleaning & Structuring – Removes headers, footers, and OCR noise using the unstructured library.
+- Metadata Extraction – Captures section numbers, titles, summaries, categories, and legal concepts.
+- Semantic Chunking – Divides text based on logical boundaries and similarity thresholds.
+- Vectorization – Embeds chunks using BAAI/bge-base-en-v1.5 into FAISS.
+- Storage – Creates a searchable local vector store with hybrid retrieval capabilities.
+
+This allows context-aware legal retrieval — for example, understanding that “irretrievable breakdown” refers to five statutory facts under Section 1(2) of the Act.
 ---
 
+## 🔍 Retrieval Pipeline Architecture
 
-## 🧮 Vector Database (ChromaDB)
+The system uses a hybrid retrieval approach combining multiple signal types for precise and contextually rich legal search.
 
-- Each clause in the *Matrimonial Causes Act 1973* is embedded as a vector representation.
-- Stored locally using **Chroma** for fast similarity search.
-- Queried by the `find_relevant_clauses` MCP server.
-- Chroma operates offline and is automatically loaded with the dataset when the clause server starts.
+###Retrieval Steps
+
+1- Query Rewriting (LLM-based)
+The user’s query is rewritten into a legally detailed and specific version using Llama 3.
+
+2- Hybrid Search (Dense + Lexical + Metadata)
+
+Dense: FAISS similarity over sentence embeddings.
+
+Lexical: BM25 keyword-based relevance scoring.
+
+Metadata Boosting: Category and clause-number matching improve accuracy.
+
+3- Reranking (Cross-Encoder)
+A BAAI/bge-reranker-base model reorders top candidates to maximize contextual precision.
+
+4- Summarization (LLM)
+Retrieved chunks are summarized into concise, legally accurate explanations.
+
+
+
+
+
+## Vector Database (FAISS Hybrid Index)
+
+- Each clause from the Matrimonial Causes Act 1973 is converted into high-dimensional vector embeddings representing its semantic meaning.
+- These embeddings are stored locally in a FAISS (Facebook AI Similarity Search) index for fast, offline similarity retrieval.
+- The find_relevant_clauses MCP server queries this FAISS index using a hybrid search approach that combines dense semantic vectors, lexical keyword scoring, and metadata matching.
+- The FAISS index is automatically loaded and ready when the clause retrieval server starts, ensuring instant, low-latency legal clause search.
+
 
 Example:
 ```python
@@ -87,26 +123,45 @@ Action Input: {"query": "adultery and irretrievable breakdown of marriage"}
 ## PROJECT STRUCTURE
 ```
 Attorney-RAG/
-│
-├── client/
-│   ├── app.py                      # for Streamlit frontend UI
-│   ├── divorce_attorney_client_v2.py  # CrewAI agents, tasks, LLM routing logic <=== Used in app.py
-│   └── divorce_attorney_client.py     # (legacy version with CrewAI Flow) <=== to demonstrate CrewAI Flow
-│
-├── servers/
-│   ├── clause_template_server.py        # Handles vector-based clause retrieval using Chroma
-│   ├── case_research_template_server.py # Retrieves and summarizes similar UK family law cases
-│   ├── strategy_template_server.py      # Generates legal arguments and strategy docs
-│   ├── model.py                        # Pydantic models for schema validation and task I/O
-│   ├── petition_template_server.py      # Drafts divorce petitions (PDF-ready structure)
-│
-├── data/
-│   └── Matrimonial_Causes_Act_1973.txt  # Base legal text used for embedding
-│
-├── pyproject.toml                      # Dependency and environment configuration (managed by uv)
-├── .venv/ or .uv/                      # Auto-generated environment
-└── README.md
-
+├── __pycache__
+│   └── retrieval_pipeline.cpython-313.pyc
+├── built_vector_db.py
+├── client
+│   ├── app.py
+│   ├── divorce_attorney_client_v2.py
+│   └── divorce_attorney_client.py
+├── data
+│   └── laws
+│       ├── legal_document.pdf
+│       ├── UK_Divorce_Act_chunks_metadata.json
+│       └── UK_Divorce_Act_clean.json
+├── main.py
+├── output
+│   └── peitition.txt
+├── pyproject.toml
+├── README.md
+├── retrieval_pipeline.py
+├── screenshots
+│   ├── case_researcher.png
+│   ├── case_strategy_analyst.png
+│   └── clause_retrieval.png
+├── servers
+│   ├── __pycache__
+│   │   └── clause_retrieval_server.cpython-313.pyc
+│   ├── case_retrieval_server.py
+│   ├── case_strategy_server.py
+│   ├── clause_retrieval_server.py
+│   ├── model.py
+│   └── petition_template_server.py
+├── title_img.png
+├── uv.lock
+└── vector_stores
+    ├── faiss_divorce_act
+    │   ├── index.faiss
+    │   └── index.pkl
+    └── faiss_laws
+        ├── index.faiss
+        └── index.pkl
 ---
 ``` 
 
