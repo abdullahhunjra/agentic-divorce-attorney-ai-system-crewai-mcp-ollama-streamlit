@@ -157,11 +157,9 @@ Attorney-RAG/
 ├── uv.lock
 └── vector_stores
     ├── faiss_divorce_act
-    │   ├── index.faiss
-    │   └── index.pkl
-    └── faiss_laws
         ├── index.faiss
         └── index.pkl
+   
 ---
 ``` 
 
